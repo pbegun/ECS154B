@@ -23,11 +23,20 @@ Using high-level languages gives architects more freedom and flexibility to quic
 You will be given a simulation framework and an example direct-mapped cache implementation.
 You will build your new cache models in this framework and evaluate them.
 You will be graded in two ways:
+
 #. Correctly implementing your cache models (e.g., the correct number of tag bits).
 #. Understanding the tradeoffs between different designs.
 
 **DO NOT MODIFY THE GIVEN CODE IN ANY WAY. DOING SO WILL LEAD TO AN AUTOMATIC ZERO.**
 (Unless expressly stated below.)
+Other rules:
+
+- Do not use any libraries except the C++ STL.
+- Your code must compile on the lab machines with no changes.
+- To test your code, we will extract your set_assoc.hh, set_assoc.cc, non_blocking.hh,
+  and non_blocking.cc files from your submission and building it with the most up-to-
+  date library files. Any code you write should go into these files, and make sure
+  that you test against the latest versions of code on github.
 
 **EXTRA CREDIT**: This is my first time giving this assignment.
 I have written this code over the last couple of days, so it's likely there are bugs.

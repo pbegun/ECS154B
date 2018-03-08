@@ -33,7 +33,8 @@ class Memory : public TickedObject
     int getLineSize();
 
     /**
-     * @return the line size in bytes
+     * @return the line size as a power of 2 (i.e. 2^getLineBits() or
+     * log2(getLineSize()))
      */
     int getLineBits();
 
@@ -42,17 +43,33 @@ class Memory : public TickedObject
      */
     void setCache(Cache *cache) { this->cache = cache; }
 
+    /**
+     * DO NOT USE THESE FUNCTIONS! THESE ARE FOR TESTING PURPOSES ONLY
+     */
+    void processorWrite(uint64_t address, int size, const uint8_t* data);
+    void checkRead(uint64_t address, int size, const uint8_t* data);
+
   private:
     Cache *cache;
 
     int64_t memorySize;
     int lineSize;
 
+    struct Block {
+        uint8_t *data;
+        bool dirty; // True if this data is dirty in the cache.
+    };
+
     /// Cheat and only allocate the blocks needed
-    std::map<uint64_t, uint8_t*> dataStorage;
+    std::map<uint64_t, Block> dataStorage;
 
     int64_t cacheWritebacks;
     int64_t cacheMisses;
+
+    /**
+     * Returns false if data does not match
+     */
+    bool compareData(const uint8_t *correct, const uint8_t *compare, int num);
 };
 
 #endif // CSIM_MEMORY_H
